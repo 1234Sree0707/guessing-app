@@ -1,13 +1,17 @@
 /**
-*GuessingApp - Use Case 3: Hint Generation 
+*GuessingApp - Use Case : Error Handling and input validation
 *
-*This class serves as the application entry point.
-*It initializes the game configuration and displays game rules. Also takes
-*input from the user and tells if the user input is greater than or less than
-*the target value. The game also gives two hints
+*This class coordinates the game execution while ensuring
+*all user inputs are safely validated before processing
+*
+*Responsibilites
+*-Initialize game configurations
+*-Accept user input
+*-Validate input using ValidationService
+*Handling game flow without crashing on invalid input
 *
 *@author Developer
-*@version 3.0
+*@version 4.0
 */
 import java.util.Scanner;
 public class GuessingApp{	
