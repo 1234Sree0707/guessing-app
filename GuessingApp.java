@@ -1,25 +1,47 @@
 /**
-*GuessingApp - Use Case 3: Hint Generation 
+*GuessingApp - Use Case 5: Game Result Storage
 *
-*This class serves as the application entry point.
-*It initializes the game configuration and displays game rules. Also takes
-*input from the user and tells if the user input is greater than or less than
-*the target value. The game also gives two hints
+*This class coordinates the complete game flow
+*and persists the final result after completion
+*
+*Responsibilites
+*-Initialize game configurations
+*-Accept and validate user guesses
+*-Generate hints when applicable 
+*Store game result at the end
 *
 *@author Developer
-*@version 3.0
+*@version 5.0
 */
 import java.util.Scanner;
 public class GuessingApp{	
+
 	public static void main(String[] args) throws InvalidInputException{
+	    System.out.println("===========================");
 		System.out.println("Welcome to the Guessing App");
-		GameConfig gameConfig=new GameConfig();
+	    System.out.println("===========================\n");
+		/*
+		*Player name is captured once
+		*and stored along with game results
+		*/
+		Scanner sc=new Scanner(System.in);
+		System.out.print("Enter Player Name: ");
+		String player=sc.nextLine();
+	    GameConfig gameConfig=new GameConfig();
 		HintService hints=new HintService();
 		ValidationService inputvalidate=new ValidationService();
 		gameConfig.showRules();
-		Scanner sc=new Scanner(System.in);
 		int attempts=0;
-		int hintc=1;
+		int hintc=0;
+		/*
+		*Tracks whether the player
+		*successfully guessed the number
+		*/
+		boolean win=false;
+		/*
+		Game loop runs until the player 
+		*exhausts the maximum attempts 
+		*/
 		while(attempts<gameConfig.getMaxAttemps()){
 			System.out.println("Enter your guess: ");
 			/*
@@ -47,7 +69,13 @@ public class GuessingApp{
 			if("CORRECT".equals(result)){
 				break;
 			}
-        }			
+        }	
+        /*
+        *Final game result is persisted
+        *after the game loop completes/
+        */
+        StorageService s=new StorageService();
+        s.saveResult(player,attempts,win);		
 	}
 }	
 		
