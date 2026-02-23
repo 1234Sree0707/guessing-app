@@ -1,17 +1,18 @@
 /**
-*GuessingApp - Use Case 5: Game Result Storage
+*GuessingApp - Use Case 6: Game Restart and Exit
 *
-*This class coordinates the complete game flow
-*and persists the final result after completion
+*This class coordinates the complete game lifecycle,
+*allowing the player to replay or exit gracefully.
 *
 *Responsibilites
-*-Initialize game configurations
-*-Accept and validate user guesses
-*-Generate hints when applicable 
+*-Start a new game
+*-Execute the guessing flow
+*-Persist game results 
+*-Restart or exit based on user choice 
 *Store game result at the end
 *
 *@author Developer
-*@version 5.0
+*@version 6.0
 */
 import java.util.Scanner;
 public class GuessingApp{	
@@ -25,6 +26,8 @@ public class GuessingApp{
 		*and stored along with game results
 		*/
 		Scanner sc=new Scanner(System.in);
+		boolean restart;
+	do{
 		System.out.print("Enter Player Name: ");
 		String player=sc.nextLine();
 	    GameConfig gameConfig=new GameConfig();
@@ -75,8 +78,14 @@ public class GuessingApp{
         *after the game loop completes/
         */
         StorageService s=new StorageService();
-        s.saveResult(player,attempts,win);		
-	}
+        s.saveResult(player,attempts,win);
+        /*
+        *Player decides whether to 
+        *restart the game or exit 
+        */		
+        restart=GameController.restartGame(sc);	
+	}while(restart);
+}
 }	
 		
 		
